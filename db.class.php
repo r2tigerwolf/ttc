@@ -19,7 +19,8 @@
     class Bus {
         public function select($row, $table, $join, $where, $sort) {   
             $sql = 'SELECT ' . $row . ' FROM `' . $table . '` ' . $join . ' WHERE ' . $where . ' ' . $sort;
-            echo $sql;
+            
+            echo $sql;  // This is to display the join. For debuging
             
             $query = mysql_query($sql);
 
