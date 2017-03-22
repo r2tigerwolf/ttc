@@ -15,9 +15,9 @@
         private $result;
         
         public function select($conn, $row, $table, $join, $where, $sort, $limit) {
-        
+
             $sql = 'SELECT ' . $row . ' FROM `' . $table . '` ' . $join . ' WHERE ' . $where . ' ' . $sort . ' ' . $limit;
-        echo $sql;
+
             $result =  $conn->query($sql);
             $keyResult = $conn->query($sql);
             $busInfo = array_keys($keyResult->fetch_assoc());
