@@ -15,8 +15,11 @@
         private $result;
         
         public function select($sqlArray) {
-
-            $sql = 'SELECT ' . $sqlArray['rows'] . ' FROM `' . $sqlArray['table'] . '` ' . $sqlArray['join'] . ' WHERE ' . $sqlArray['where'] . ' ' . $sqlArray['order'] . ' ' . $sqlArray['limit'];
+            if($sqlArray['where']) {
+                $sqlArray['where'] = ' WHERE ' . $sqlArray['where'];
+            }
+            
+            $sql = 'SELECT ' . $sqlArray['rows'] . ' FROM `' . $sqlArray['table'] . '` ' . $sqlArray['join'] . $sqlArray['where'] . ' ' . $sqlArray['order'] . ' ' . $sqlArray['limit'];
 
             $result =  $sqlArray['conn']->query($sql);
             $keyResult = $sqlArray['conn']->query($sql);
