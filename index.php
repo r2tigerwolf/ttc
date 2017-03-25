@@ -26,14 +26,8 @@
     $bus = new Bus; 
 
     if(isset($_POST['route_name'])) {
-        $rows = 'route_id, route_long_name, route_short_name';
-        $table = 'routes'; 
-        $join = '';
-        $where = 'route_long_name like "%'.$_POST["route_name"].'%"';
-        $order = 'ORDER BY route_short_name DESC';
-        $limit = '';
-        
-        $routeResult = $bus->select($busConn, $rows, $table, $join, $where, $order, $limit); 
+        $sqlArray = array('conn' => $busConn, 'rows' => 'route_id, route_long_name, route_short_name', 'table' => 'routes', 'join' => '', 'where' => 'route_long_name like "%'.$_POST["route_name"].'%"', 'order' => 'ORDER BY route_short_name DESC', 'limit' => '');
+        $routeResult = $bus->select($sqlArray); 
 		
         echo '<ul id="route">';
         foreach($routeResult  as $key => $val) {
@@ -46,15 +40,13 @@
         $rows = 'r.route_long_name, r.route_short_name, 
                 trips.route_id, trips.trip_id, trips.trip_headsign, 
                 st.stop_id, st.arrival_time, st.departure_time,s.stop_name, s.stop_lat, s.stop_lon';
-        $table = 'trips'; 
+                
         $join = 'LEFT JOIN routes as r ON r.route_id = trips.route_id 
                 LEFT JOIN stop_times as st ON trips.trip_id=st.trip_id 
                 LEFT JOIN stops as s ON st.stop_id = s.stop_id';
-        $where = 'r.route_id = "'.$_GET['route'].'"';
-        $order = '';
-        $limit = '';
-        
-        $tripsResult = $bus->select($busConn, $rows, $table, $join, $where , $order, $limit);
+    
+        $sqlArray = array('conn' => $busConn, 'rows' => $rows, 'table' => 'trips', 'join' => $join, 'where' => 'r.route_id = "'.$_GET['route'].'"', 'order' => '', 'limit' => '');
+        $tripsResult = $bus->select($sqlArray);
 
         echo '<ul id="trips">';
         foreach($tripsResult as $key => $val) {
