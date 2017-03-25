@@ -35,12 +35,13 @@
                     $i++;
                 }
       
-                return $this->result; 
+                return $this->result;
+                mysqli_close($con); 
             }
             else {
-                return false; 
+                return false;
+                mysqli_close($con); 
             }
-            mysqli_close($con);
         }
     }
 ?>
